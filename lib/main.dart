@@ -4,9 +4,26 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late PageController _pageController;
+  final int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: _currentPage,
+      viewportFraction: 0.8,
+    );
+
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,6 +35,7 @@ class MyApp extends StatelessWidget {
               height: 220,
               child: PageView.builder(
                   itemCount: 2,
+                  controller: _pageController,
                   itemBuilder: (context, index){
                     String title = "";
                     String subtitle = "";
@@ -27,6 +45,7 @@ class MyApp extends StatelessWidget {
                     Color titleColor = Colors.transparent;
                     Color titleBackgroundColor = Colors.transparent;
                     Color textColor = Colors.transparent;
+                    Color iconColor = Colors.transparent;
 
                     if(index == 0) {
                       title = "Design Thinking";
@@ -37,6 +56,7 @@ class MyApp extends StatelessWidget {
                       titleColor = const Color(0xFFAA97FF);
                       titleBackgroundColor = Colors.white;
                       textColor = Colors.white;
+                      iconColor = Colors.white;
                     }
                     else if(index == 1) {
                       title = "User Experience Design";
@@ -47,6 +67,7 @@ class MyApp extends StatelessWidget {
                       titleColor = const Color(0xFFFFD264);
                       titleBackgroundColor = Colors.black;
                       textColor = Colors.black;
+                      iconColor = Colors.black;
                     }
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -64,9 +85,9 @@ class MyApp extends StatelessWidget {
                                   child: Text(title, style: TextStyle(backgroundColor: titleBackgroundColor, color: titleColor, fontSize: 16)),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.only(right: 25, top: 25),
-                                child: Icon(Icons.bookmark_outline),
+                               Padding(
+                                padding: const EdgeInsets.only(right: 25, top: 25),
+                                child: Icon(Icons.bookmark, color: iconColor,),
                               ),
                             ],
                           ),
